@@ -2,6 +2,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-param" content="_token">
     <title>Анализатор страниц</title>
 </head>
 <body>
@@ -17,10 +21,5 @@
         </div>
     </header>
 
-    <main class="flex-grow-1">
-    @include('flash::message')
-    <div class="container-lg">
-        @yield('new_content')
-    </div>
-</main>
+    @yield('new_content')
 </body>
