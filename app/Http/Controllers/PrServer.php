@@ -36,7 +36,7 @@ class PrServer extends Controller
 
         if (Url::where('name', $name)->exists()) {
             flash('Страница уже существует')->error();
-            return redirect()->route('urls.index');
+            return redirect()->route('urls.show');
         } else {
 
             $url = new Url();
@@ -44,7 +44,7 @@ class PrServer extends Controller
             $url->save();
 
             flash('Страница успешно добавлена');
-            return redirect()->route('urls.index');
+            return redirect()->route('urls.show');
         }
     }
 
