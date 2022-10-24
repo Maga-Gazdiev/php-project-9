@@ -36,7 +36,7 @@ class PrServer extends Controller
         $id = DB::table('urls')->where('name', $name)->value('id');
           
         if ($id) {
-            flash('Страница уже существует')->error();
+            flash('Страница уже существует')->success();
             return redirect()->route('urls.show', $id);
         } 
         DB::table('urls')->insert([
