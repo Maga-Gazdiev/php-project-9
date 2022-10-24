@@ -17,9 +17,7 @@ class PrServer extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'url.name' => 'required|max:255|min:4'
-        ]);
+        
         $Url = $request->input('url.name');
         if(substr($Url, 0, 8) == "https://" || substr($Url, 0, 7) == "http://"){
         $getNormalUrl = function($Url)
@@ -36,14 +34,14 @@ class PrServer extends Controller
         $id = DB::table('urls')->where('name', $name)->value('id');
           
         if ($id) {
-            flash('Страница уже существует');
+            flash('Страница уже существует')->error();
             return redirect()->route('urls.show', $id);
         } 
         DB::table('urls')->insert([
             'name' => $name,
             'created_at' => Carbon::now('MSK'),
         ]);
-        flash('Страница успешно добавлена');
+        flash('Страница успешно добавлена')->success();
         $id = DB::table('urls')->where('name', $name)->value('id');
         return redirect()->route('urls.show', $id);
         } else {
@@ -78,7 +76,7 @@ class PrServer extends Controller
         'created_at' => Carbon::now('MSK'),
         ]);
 
-        flash('Страница успешно проверена');
+        flash('Страница успешно проверена')->success();
         return redirect()->route('urls.show', $id);
     }  
 
@@ -91,7 +89,7 @@ class PrServer extends Controller
 
     public function show($id)
     {
-        $users = DB::table('urls')->findOrFail($id);
+        $users = DB::table('urls')->find($id);
         $all = DB::table('url_checks')->where('url_id', $id)->get();
         return view('show', compact('users', 'all'));
     }
