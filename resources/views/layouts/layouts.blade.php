@@ -21,5 +21,10 @@
         </div>
     </header>
 
-    @yield('new_content')
+    <main class="flex-grow-1">
+    @include('flash::message')
+    <div class="container-lg">
+        @yield('new_content')
+    </div>
+</main>
 </body>
