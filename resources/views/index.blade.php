@@ -3,8 +3,6 @@
 
 @extends('layouts.layouts')
 
-@include('flash::message')
-
 @section('new_content')
 
 <div class="container-lg">
@@ -22,7 +20,7 @@
             @foreach($users as $user)
                 <tr>
                     <td>{{ $user->id }}</td>
-                    <td><a href={{ route('urls.show', $user->id) }}>{{ $user->name }}</a></td>
+                    <td><a href="{{ route('urls.show', $user->id) }}">{{ $user->name }}</a></td>
                     <td>{{ $all[$user->id]->created_at ?? ''}}</td>
                     <td>{{ $all[$user->id]->status_code ?? ''}}</td>
                 </tr>

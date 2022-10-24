@@ -3,14 +3,12 @@
 
 @extends('layouts.layouts')
 
-@include('flash::message')
-
 @section('new_content')
 <div class="container-lg">
     <div class="table-responsive">
         <table class="table table-bordered table-hover text-nowrap">
             <h1 class="mt-5 mb-3">Сайт: {{ $users->name }}</h1>
-            <form action={{ route('urls.show', $users->id) }} class="d-flex">
+            <form action="{{ route('urls.show', $users->id) }}" class="d-flex">
                 <tbody>
                     <tr>
                         <th>ID</th>
@@ -29,7 +27,7 @@
         </table>
     </div>
     <h2 class="mt-5 mb-3">Проверки</h2>
-    <form method="post" action={{ route('urls.checks', $users->id) }}>
+    <form method="post" action="{{ route('urls.checks', $users->id) }}">
         @csrf
         <input type="submit" class="btn btn-primary" value="Запустить проверку">
     </form>

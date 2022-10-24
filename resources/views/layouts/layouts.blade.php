@@ -7,12 +7,12 @@
 <body>
     <header class="flex-shrink-0">
         <div class="navbar navbar-expand-md navbar-dark bg-dark px-3">
-            <a class="navbar-brand" href={{ route('/home')}}>Анализатор страниц</a>
+            <a class="navbar-brand" href="{{ route('/home')}}">Анализатор страниц</a>
             <div class="navbar-nav">
-                <a class="nav-link {{ request()->routeIs('/home') ? 'active' : '' }}" href={{ route('/home') }}>Главная</a>
+                <a class="nav-link {{ request()->routeIs('/home') ? 'active' : '' }}" href="{{ route('/home') }}">Главная</a>
             </div>
             <div class="navbar-nav">
-                <a class="nav-link {{ request()->routeIs('urls.index') ? 'active' : '' }}" href={{ route('urls.index') }}>Сайты</a>
+                <a class="nav-link {{ request()->routeIs('urls.index') ? 'active' : '' }}" href="{{ route('urls.index') }}">Сайты</a>
             </div>
         </div>
     </header>
