@@ -17,6 +17,9 @@ class PrServer extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'url.name' => 'required|max:255|min:4'
+        ]);
         $Url = $request->input('url.name');
         if(substr($Url, 0, 8) == "https://" || substr($Url, 0, 7) == "http://"){
         $getNormalUrl = function($Url)
