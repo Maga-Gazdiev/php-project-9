@@ -24,7 +24,7 @@
             @foreach ($urls->all() as $url)          
             <tr>
                 <td>{{ $url->id }}</td>
-                <td><a href={{ route('urls.show', $url->id)}}> {{ $url->name }}</a></td>
+                <td><a href="{{ route('urls.show', $url->id)}}"> {{ $url->name }}</a></td>
                 <td>{{ $url->created_at }}</td>
             </tr>
             @endforeach

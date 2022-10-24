@@ -20,7 +20,7 @@
                     </div>
                 @endif
 
-                <form method="post" action={{ route('urls.store') }} class="d-flex justify-content-center">
+                <form method="post" action="{{ route('urls.store') }}" class="d-flex justify-content-center">
                     @csrf
                     <input type="text" name="url[name]" value="" class="form-control form-control-lg"
                         placeholder="https://www.example.com">
