@@ -13,9 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', 'App\Http\Controllers\PrServer@home')->name('/home');
+
 Route::get('/urls', 'App\Http\Controllers\PrServer@index')->name('urls.index');
+
 Route::post('/urls', 'App\Http\Controllers\PrServer@store')->name('urls.store');
+
 Route::post('/urls/{id}/checks', 'App\Http\Controllers\PrServer@checks')->name('urls.checks');
+
 Route::get('/urls/{id}', 'App\Http\Controllers\PrServer@show')->name('urls.show');
 
 
