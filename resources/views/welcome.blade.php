@@ -3,6 +3,8 @@
 
 @extends('layouts.layouts')
 
+@include('flash::message')
+
 @section('new_content')
 <div class="container">
     <div class="row mt-3">
