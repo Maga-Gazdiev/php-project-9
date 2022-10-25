@@ -43,7 +43,7 @@ class PrServer extends Controller
             $url->name = $name;
             $url->save();
 
-            flash('Страница успешно добавлена');
+            flash('Страница успешно добавлена')->success();
             return redirect()->route('urls.show');
         }
     }
@@ -66,7 +66,6 @@ class PrServer extends Controller
         $response_body = $response->body();
         $status = $response->status();
         $document = new Document($response_body);
-        //optional - helper laravel, Если переданный объект имеет значение null, свойства и методы будут возвращать также null вместо вызова ошибки
         $h1 = optional($document->first('h1'))->text();
         $title = optional($document->first('title'))->text();
         $description = optional($document->first('meta[name=description]'))->attr('content');
@@ -80,7 +79,7 @@ class PrServer extends Controller
         $url->description = $description;
         $url->save();
 
-        flash('Страница успешно проверена');
+        flash('Страница успешно проверена')->success();
         return redirect()->route('urls.show', ['id' => $id]);
     }
 }
