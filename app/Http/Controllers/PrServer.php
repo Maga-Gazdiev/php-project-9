@@ -36,6 +36,7 @@ class PrServer extends Controller
 
         if (Url::where('name', $name)->exists()) {
             $_SESSION['flash'] = 'Страница уже существует';
+            header('Location: show');
             return redirect()->route('urls.show');
         } else {
 
@@ -45,7 +46,7 @@ class PrServer extends Controller
 
 
 	        $_SESSION['flash'] = 'Страница успешно добавлена';
-            //header('Location: index.php');
+            header('Location: show');
             return redirect()->route('urls.show');
         }
     }
@@ -83,6 +84,7 @@ class PrServer extends Controller
         $url->save();
 
         $_SESSION['flash'] = 'Страница успешно проверена';
+        header('Location: show');
         return redirect()->route('urls.show', ['id' => $id]);
     }
 }
