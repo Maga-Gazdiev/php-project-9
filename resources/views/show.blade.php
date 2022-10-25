@@ -3,7 +3,6 @@
 @section('main_content')
 
 <?php
-session_start();
     if (isset($_SESSION['status'])){
 ?>
     <div class="alert alert-success" role="alert">
