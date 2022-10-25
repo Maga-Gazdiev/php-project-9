@@ -16,9 +16,6 @@ use Exception;
 class PrServer extends Controller
 {
     use RefreshDatabase;
-    const FLASH = 'FLASH_MESSAGES';
-    const FLASH_ERROR = 'error';
-    const FLASH_INFO = 'info';
 
     public function home()
     {

@@ -7,7 +7,7 @@ session_start();
     if (isset($_SESSION['status'])){
 ?>
     <div class="alert alert-success" role="alert">
-        {{ echo $_SESSION['status']; }}
+        <?php echo $_SESSION['status']; ?>
     </div>
 <?php
 unset($_SESSION['status']);
