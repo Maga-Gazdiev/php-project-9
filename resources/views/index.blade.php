@@ -1,17 +1,14 @@
 @extends('layouts.app')
 
+@include('flash::message')
+
 @section('main_content')
 
-<?php
-    if (isset($_SESSION['status'])){
-?>
-    <div class="alert alert-success" role="alert">
-    <?php echo $_SESSION['status']; ?>
+@if(Session::has('success'))
+    <div class="alert alert-success">
+        {{Session::get('success')}}
     </div>
-<?php
-unset($_SESSION['status']);
-}
-?>
+@endif
 
 <div class="container-lg">
     <h1 class="mt-5 mb-3">Сайты</h1>

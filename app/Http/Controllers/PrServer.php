@@ -30,21 +30,22 @@ class PrServer extends Controller
 
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'url.name' => 'required|max:255|min:4'
         ]);
         $name = $request->input('url.name');
 
         if (Url::where('name', $name)->exists()) {
-            $_SESSION['status'] = 'Страница уже существует';
+            flash('Страница уже существует')->error();
             return redirect()->route('urls.show');
         } else {
 
             $url = new Url();
             $url->name = $name;
             $url->save();
-            
-            $_SESSION['status'] = 'Страница успешно добавлена';
+
+            flash('Страница успешно добавлена');
             return redirect()->route('urls.show');
         }
     }
@@ -80,7 +81,7 @@ class PrServer extends Controller
         $url->description = $description;
         $url->save();
 
-        $_SESSION['status'] = 'Страница успешно проверена';
+        flash('Страница успешно проверена');
         return redirect()->route('urls.show', ['id' => $id]);
     }
 }

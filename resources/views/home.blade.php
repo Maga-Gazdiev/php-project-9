@@ -2,16 +2,6 @@
 
 @section('main_content')
 
-<?php
-    if (isset($_SESSION['status'])){
-?>
-    <div class="alert alert-success" role="alert">
-        <?php echo $_SESSION['status']; ?>
-    </div>
-<?php
-unset($_SESSION['status']);
-}
-?>
 
     <div class="container-lg mt-3">
         <div class="row">
