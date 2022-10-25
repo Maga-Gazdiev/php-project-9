@@ -23,7 +23,7 @@
                     </li>
                 </ul>
             </div>
-        </nav>
+        </nav>    
     </header>
 
     @yield('main_content')

@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 namespace App\Http\Controllers;
 
@@ -14,6 +15,9 @@ use Exception;
 class PrServer extends Controller
 {
     use RefreshDatabase;
+    const FLASH = 'FLASH_MESSAGES';
+    const FLASH_ERROR = 'error';
+    const FLASH_INFO = 'info';
 
     public function home()
     {
@@ -28,22 +32,21 @@ class PrServer extends Controller
 
     public function store(Request $request)
     {
-
         $this->validate($request, [
             'url.name' => 'required|max:255|min:4'
         ]);
         $name = $request->input('url.name');
 
         if (Url::where('name', $name)->exists()) {
-            flash('Страница уже существует')->error();
+            $_SESSION['status'] = 'Страница уже существует';
             return redirect()->route('urls.show');
         } else {
 
             $url = new Url();
             $url->name = $name;
             $url->save();
-
-            flash('Страница успешно добавлена')->success();
+            
+            $_SESSION['status'] = 'Страница успешно добавлена';
             return redirect()->route('urls.show');
         }
     }
@@ -79,7 +82,7 @@ class PrServer extends Controller
         $url->description = $description;
         $url->save();
 
-        flash('Страница успешно проверена')->success();
+        $_SESSION['status'] = 'Страница успешно проверена';
         return redirect()->route('urls.show', ['id' => $id]);
     }
 }

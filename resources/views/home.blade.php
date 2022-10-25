@@ -1,7 +1,18 @@
 @extends('layouts.app')
 
-
 @section('main_content')
+
+<?php
+session_start();
+    if (isset($_SESSION['status'])){
+?>
+    <div class="alert alert-success" role="alert">
+        {{ echo $_SESSION['status']; }}
+    </div>
+<?php
+unset($_SESSION['status']);
+}
+?>
 
     <div class="container-lg mt-3">
         <div class="row">

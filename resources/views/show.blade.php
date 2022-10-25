@@ -1,8 +1,19 @@
 @extends('layouts.app')
 
-@include('flash::message')
-
 @section('main_content')
+
+<?php
+session_start();
+    if (isset($_SESSION['status'])){
+?>
+    <div class="alert alert-success" role="alert">
+        {{ echo $_SESSION['status']; }}
+    </div>
+<?php
+unset($_SESSION['status']);
+}
+?>
+
     <div class="container-lg">
         <h1 class="mt-5 mb-3">Сайт: {{ $url->name }}</h1>
         <div class="table-responsive">
