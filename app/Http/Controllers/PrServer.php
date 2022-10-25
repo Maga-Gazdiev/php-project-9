@@ -1,7 +1,8 @@
 <?php
-session_start();
 
 namespace App\Http\Controllers;
+
+session_start();
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
