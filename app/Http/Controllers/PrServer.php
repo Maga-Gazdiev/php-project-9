@@ -64,7 +64,7 @@ class PrServer extends Controller
         $h1 = optional($document->first('h1'))->text();
         $title = optional($document->first('title'))->text();
         $description = optional($document->first('meta[name=description]'))->attr('content');
-        if(isset($response->status())){
+        if(!empty($response->status())){
         DB::table('url_checks')->insert([
         'url_id' => $id,
         'status_code' => $response->status(),
