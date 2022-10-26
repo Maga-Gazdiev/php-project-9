@@ -74,9 +74,7 @@ class PrServer extends Controller
         'description' => $description,
         'created_at' => Carbon::now('MSK'),
         ]);
-
-        $mm = flash('Страница успешно проверена');
-        dd($mm);
+        
         flash('Страница успешно проверена');
         return redirect()->route('urls.show', $id);
     }  

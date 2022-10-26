@@ -3,20 +3,9 @@
 
 @extends('layouts.layouts')
 
-@include('flash::message')
-
 @section('new_content')
 
-<?php
-if(isset($_SESSION['status'])){
-?>
-<div class="alert alert-success" role="alert">
-    <?php echo $_SESSION[$status];?>
-</div>
-<?php
-unset($_SESSION['status']);
-}
-?>
+@include('flash::message')
 
 <div class="container-lg">
     <h1 class="mt-3 mb-3">Сайты</h1>
