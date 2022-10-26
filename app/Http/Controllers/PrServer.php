@@ -33,15 +33,14 @@ class PrServer extends Controller
         $id = DB::table('urls')->where('name', $name)->value('id');
           
         if ($id) {
-            $_SESSION['status'] = 'Страница уже существует';
+            flash('Страница уже существует')->success();
             return redirect()->route('urls.show', $id);
         } 
         DB::table('urls')->insert([
             'name' => $name,
             'created_at' => Carbon::now('MSK'),
         ]);
-
-        $_SESSION['status'] = 'Страница успешно добавлена';
+        flash('Страница успешно добавлена')->success();
         $id = DB::table('urls')->where('name', $name)->value('id');
         return redirect()->route('urls.show', $id);
         } else {
@@ -76,7 +75,9 @@ class PrServer extends Controller
         'created_at' => Carbon::now('MSK'),
         ]);
 
-        $_SESSION['status'] = 'Страница успешно проверена';
+        $mm = flash('Страница успешно проверена');
+        dd($mm);
+        flash('Страница успешно проверена');
         return redirect()->route('urls.show', $id);
     }  
 
