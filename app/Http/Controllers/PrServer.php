@@ -76,7 +76,7 @@ class PrServer extends Controller
 
         flash('Страница успешно проверена');
         return redirect()->route('urls.show', $id);
-        } 
+        
     }  
 
     public function index()
