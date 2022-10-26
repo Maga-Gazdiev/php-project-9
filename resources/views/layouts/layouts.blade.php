@@ -26,5 +26,3 @@
         @yield('new_content')
     </div>
 </body>
-
-
