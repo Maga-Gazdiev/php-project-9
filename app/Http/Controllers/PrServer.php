@@ -2,86 +2,92 @@
 
 namespace App\Http\Controllers;
 
-session_start();
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Models\Url;
-use App\Models\UrlCheck;
 use Illuminate\Support\Facades\Http;
 use DiDom\Document;
 use Carbon\Carbon;
-use Exception;
 
 class PrServer extends Controller
-{
-    use RefreshDatabase;
-
+{  
     public function home()
     {
-        return view('home');
-    }
-
-    public function index()
-    {
-        $urls = new Url();
-        return view('index', compact('urls'));
+        return view(view: 'welcome');
     }
 
     public function store(Request $request)
     {
-
-        $this->validate($request, [
-            'url.name' => 'required|max:255|min:4'
+        $Url = $request->input('url.name');
+        if(substr($Url, 0, 8) == "https://" || substr($Url, 0, 7) == "http://"){
+        $getNormalUrl = function($Url)
+        {
+          $nameUrl = mb_strtolower($Url);
+          $scheme = parse_url($nameUrl, PHP_URL_SCHEME);
+          $host = parse_url($nameUrl, PHP_URL_HOST);
+          $name = "{$scheme}://{$host}";
+          return $name;
+        };
+        
+        $name = $getNormalUrl($Url);
+      
+        $id = DB::table('urls')->where('name', $name)->value('id');
+          
+        if ($id) {
+            flash('Страница уже существует')->success();
+            return redirect()->route('urls.show', $id);
+        } 
+        DB::table('urls')->insert([
+            'name' => $name,
+            'created_at' => Carbon::now('MSK'),
         ]);
-        $name = $request->input('url.name');
-
-        if (Url::where('name', $name)->exists()) {
-            flash('Страница уже существует')->error();
-            return redirect()->route('urls.show');
+        flash('Страница успешно добавлена')->success();
+        $id = DB::table('urls')->where('name', $name)->value('id');
+        return redirect()->route('urls.show', $id);
         } else {
-
-            $url = new Url();
-            $url->name = $name;
-            $url->save();
-
-            flash('Страница успешно добавлена');
-            return redirect()->route('urls.show');
+            
+            return redirect()->route('/home');
         }
-    }
+    }  
 
-    public function show(string $id)
-    {
-        $url = Url::findOrFail($id);
-        return view('show', compact('url'));
-    }
-
-    public function checks(Request $request, string $id)
-    {
-        $urls = Url::findOrFail($id);
+    public function checks(Request $request, $id)
+    {   
+        $users = DB::table('urls')->find($id);
+        
         try {
-            $response = Http::get($urls->name);
+            $response = Http::get($users->name);
         } catch (\Exception $e) {
-            flash($e->getMessage())->error();
+            
             return redirect()->route('urls.show', ['id' => $id]);
         }
-        $response_body = $response->body();
-        $status = $response->status();
-        $document = new Document($response_body);
+        
+        $body = $response->body();
+        $document = new Document($body);
         $h1 = optional($document->first('h1'))->text();
         $title = optional($document->first('title'))->text();
         $description = optional($document->first('meta[name=description]'))->attr('content');
 
-        $url = new UrlCheck();
+        DB::table('url_checks')->insert([
+        'url_id' => $id,
+        'status_code' => $response->status(),
+        'h1' => $h1,
+        'title' => $title,
+        'description' => $description,
+        'created_at' => Carbon::now('MSK'),
+        ]);
+        return redirect()->route('urls.show', $id);
+    }  
 
-        $url->url_id = $id;
-        $url->status_code = $status;
-        $url->h1 = $h1;
-        $url->title = $title;
-        $url->description = $description;
-        $url->save();
+    public function index()
+    {
+       $users = DB::table('urls')->get();
+       $all = DB::table('url_checks')->get()->keyBy('url_id');
+       return view('index', compact('users', 'all'));
+    }  
 
-        flash('Страница успешно проверена');
-        return redirect()->route('urls.show', ['id' => $id]);
+    public function show($id)
+    {
+        $users = DB::table('urls')->find($id);
+        $all = DB::table('url_checks')->where('url_id', $id)->get();
+        return view('show', compact('users', 'all'));
     }
 }
