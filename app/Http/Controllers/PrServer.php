@@ -33,7 +33,7 @@ class PrServer extends Controller
         $id = DB::table('urls')->where('name', $name)->value('id');
           
         if ($id) {
-            flash('Страница уже существует')->success();
+            flash('Страница уже существует')->error();
             return redirect()->route('urls.show', $id);
         } 
         DB::table('urls')->insert([
@@ -44,7 +44,7 @@ class PrServer extends Controller
         $id = DB::table('urls')->where('name', $name)->value('id');
         return redirect()->route('urls.show', $id);
         } else {
-            
+            flash('Страница успешно добавлена')->success();
             return redirect()->route('/home');
         }
     }  
@@ -56,7 +56,6 @@ class PrServer extends Controller
         try {
             $response = Http::get($users->name);
         } catch (\Exception $e) {
-            
             return redirect()->route('urls.show', ['id' => $id]);
         }
         
@@ -65,7 +64,7 @@ class PrServer extends Controller
         $h1 = optional($document->first('h1'))->text();
         $title = optional($document->first('title'))->text();
         $description = optional($document->first('meta[name=description]'))->attr('content');
-
+        if(isset($response->status())){
         DB::table('url_checks')->insert([
         'url_id' => $id,
         'status_code' => $response->status(),
@@ -74,9 +73,13 @@ class PrServer extends Controller
         'description' => $description,
         'created_at' => Carbon::now('MSK'),
         ]);
-        
+
         flash('Страница успешно проверена');
         return redirect()->route('urls.show', $id);
+        } else {
+        flash('Произошла ошибка при проверке')->error();
+        return redirect()->route('urls.show', $id);
+        }
     }  
 
     public function index()
