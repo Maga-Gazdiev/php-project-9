@@ -64,7 +64,7 @@ class PrServer extends Controller
         $h1 = optional($document->first('h1'))->text();
         $title = optional($document->first('title'))->text();
         $description = optional($document->first('meta[name=description]'))->attr('content');
-        if(!empty($response->status())){
+     
         DB::table('url_checks')->insert([
         'url_id' => $id,
         'status_code' => $response->status(),
@@ -76,10 +76,7 @@ class PrServer extends Controller
 
         flash('Страница успешно проверена');
         return redirect()->route('urls.show', $id);
-        } else {
-        flash('Произошла ошибка при проверке')->error();
-        return redirect()->route('urls.show', $id);
-        }
+        } 
     }  
 
     public function index()
