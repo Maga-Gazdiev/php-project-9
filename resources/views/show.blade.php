@@ -12,7 +12,7 @@ if(isset($_SESSION['status'])){
     <?php echo $_SESSION[$status];?>
 </div>
 <?php
-unset($_SESSION)
+unset($_SESSION['status']);
 }
 ?>
 
