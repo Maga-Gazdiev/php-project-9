@@ -4,6 +4,18 @@
 @extends('layouts.layouts')
 
 @section('new_content')
+
+<?php
+if(isset($_SESSION['status'])){
+?>
+<div class="alert alert-success" role="alert">
+    <?php echo $_SESSION[$status];?>
+</div>
+<?php
+unset($_SESSION)
+}
+?>
+
 <div class="container-lg">
     <div class="table-responsive">
         <table class="table table-bordered table-hover text-nowrap">

@@ -4,6 +4,18 @@
 @extends('layouts.layouts')
 
 @section('new_content')
+
+<?php
+if(isset($_SESSION['status'])){
+?>
+<div class="alert alert-success" role="alert">
+    <?php echo $_SESSION[$status];?>
+</div>
+<?php
+unset($_SESSION)
+}
+?>
+
 <div class="container">
     <div class="row mt-3">
         <div class="col-12 col-md-10 col-lg-8 mx-auto border rounded-3 bg-light p-5">

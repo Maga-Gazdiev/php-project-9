@@ -5,6 +5,17 @@
 
 @section('new_content')
 
+<?php
+if(isset($_SESSION['status'])){
+?>
+<div class="alert alert-success" role="alert">
+    <?php echo $_SESSION[$status];?>
+</div>
+<?php
+unset($_SESSION)
+}
+?>
+
 <div class="container-lg">
     <h1 class="mt-3 mb-3">Сайты</h1>
     <table class="table table-bordered table-hover text-nowrap">
