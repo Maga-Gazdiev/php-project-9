@@ -6,7 +6,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="csrf-param" content="_token">
     <title>Анализатор страниц</title>
-    @vite(['resources/js/app.js'])
 </head>
 <body class="min-vh-100 d-flex flex-column">
 <header class="flex-shrink-0">
