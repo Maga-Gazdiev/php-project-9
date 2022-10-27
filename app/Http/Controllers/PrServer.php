@@ -51,7 +51,7 @@ class PrServer extends Controller
 
     public function checks(Request $request, $id)
     {   
-        $users = DB::table('urls')->findOrFail($id);
+        $users = DB::table('urls')->find($id);
         
         try {
             $response = Http::get($users->name);
@@ -88,7 +88,7 @@ class PrServer extends Controller
 
     public function show($id)
     {
-        $users = DB::table('urls')->findOrFail($id);
+        $users = DB::table('urls')->find($id);
         $all = DB::table('url_checks')->where('url_id', $id)->get();
         return view('show', compact('users', 'all'));
     }
