@@ -2,94 +2,80 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use DiDom\Document;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
-class PrServer extends Controller
-{  
-    public function home()
+class UrlController extends Controller
+{
+    public function index(): View
     {
-        return view(view: 'welcome');
+        $urls = DB::table('urls')->orderBy('id')->paginate(10);
+
+        $checksUrl = DB::table('url_checks')
+            ->orderBy('url_id')
+            ->latest()
+            ->distinct('url_id')
+            ->get()
+            ->keyBy('url_id');
+
+        return view('urls.index', compact('urls', 'checksUrl'));
     }
 
-    public function store(Request $request)
+
+    public function store(Request $request): RedirectResponse
     {
-        $Url = $request->input('url.name');
-        if(substr($Url, 0, 8) == "https://" || substr($Url, 0, 7) == "http://"){
-        $getNormalUrl = function($Url)
-        {
-          $nameUrl = mb_strtolower($Url);
-          $scheme = parse_url($nameUrl, PHP_URL_SCHEME);
-          $host = parse_url($nameUrl, PHP_URL_HOST);
-          $name = "{$scheme}://{$host}";
-          return $name;
-        };
-        
-        $name = $getNormalUrl($Url);
-      
-        $id = DB::table('urls')->where('name', $name)->value('id');
-          
+        $validated = Validator::make($request->all(), [
+            'url.name' => 'url|required|max:255',
+        ]);
+        if ($validated->fails()) {
+            flash('Некорректный URL')->error();
+            return redirect()->route('main')->withErrors($validated);
+        }
+
+        $nameUrl = $request['url.name'];
+        $normalizedUrl = $this->normalizeUrl($nameUrl);
+
+        $id = DB::table('urls')
+            ->where('name', $normalizedUrl)
+            ->value('id');
+
         if ($id) {
             flash('Страница уже существует')->success();
-            return redirect()->route('urls.show', $id);
-        } 
-        DB::table('urls')->insert([
-            'name' => $name,
-            'created_at' => Carbon::now('MSK'),
-        ]);
-        flash('Страница успешно добавлена')->success();
-        $id = DB::table('urls')->where('name', $name)->value('id');
-        return redirect()->route('urls.show', $id);
         } else {
-            
-            return redirect()->route('/home');
+            $id = DB::table('urls')->insertGetId([
+                'name' => $normalizedUrl,
+                'created_at' => Carbon::now(),
+            ]);
+
+            flash('Страница успешно добавлена')->success();
         }
-    }  
-
-    public function checks(Request $request, $id)
-    {   
-        $users = DB::table('urls')->find($id);
-        
-        try {
-            $response = Http::get($users->name);
-        } catch (\Exception $e) {
-            
-            return redirect()->route('urls.show', ['id' => $id]);
-        }
-        
-        $body = $response->body();
-        $document = new Document($body);
-        $h1 = optional($document->first('h1'))->text();
-        $title = optional($document->first('title'))->text();
-        $description = optional($document->first('meta[name=description]'))->attr('content');
-
-        DB::table('url_checks')->insert([
-        'url_id' => $id,
-        'status_code' => $response->status(),
-        'h1' => $h1,
-        'title' => $title,
-        'description' => $description,
-        'created_at' => Carbon::now('MSK'),
-        ]);
-
-        flash('Страница успешно проверена');
         return redirect()->route('urls.show', $id);
-    }  
+    }
 
-    public function index()
+    private function normalizeUrl(string $nameUrl): string
     {
-       $users = DB::table('urls')->get();
-       $all = DB::table('url_checks')->get()->keyBy('url_id');
-       return view('index', compact('users', 'all'));
-    }  
+        $nameUrl = mb_strtolower($nameUrl);
 
-    public function show($id)
+        $scheme = parse_url($nameUrl, PHP_URL_SCHEME);
+        $host = parse_url($nameUrl, PHP_URL_HOST);
+
+        return "{$scheme}://{$host}";
+    }
+
+    public function show(int $id): View
     {
-        $users = DB::table('urls')->find($id);
-        $all = DB::table('url_checks')->where('url_id', $id)->get();
-        return view('show', compact('users', 'all'));
+        $url = DB::table('urls')->find($id);
+        abort_unless($url, 404);
+
+        $checksUrl = DB::table('url_checks')
+            ->where('url_id', $id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('urls.show', compact('url', 'checksUrl'));
     }
 }

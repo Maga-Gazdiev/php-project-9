@@ -1,15 +1,10 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+@extends('layouts.layout')
 
-@extends('layouts.layouts')
-
-@section('new_content')
-
-@include('flash::message')
-
-<div class="container-lg">
-    <h1 class="mt-3 mb-3">Сайты</h1>
-    <table class="table table-bordered table-hover text-nowrap">
+@section('content')
+    <div class="table-responsive">
+        <h1 class="mt-5 mb-3">Сайты</h1>
+        <table class="table table-bordered table-hover text-nowrap"
+               style="line-height: 18px;">
             <thead>
             <tr>
                 <th>ID</th>
@@ -19,16 +14,16 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($users as $user)
+            @foreach($urls as $url)
                 <tr>
-                    <td>{{ $user->id }}</td>
-                    <td><a href="{{ route('urls.show', $user->id) }}">{{ $user->name }}</a></td>
-                    <td>{{ $all[$user->id]->created_at ?? ''}}</td>
-                    <td>{{ $all[$user->id]->status_code ?? ''}}</td>
+                    <td>{{ $url->id }}</td>
+                    <td><a href="{{ route('urls.show', $url->id) }}">{{ $url->name }}</a></td>
+                    <td>{{ $checksUrl[$url->id]->created_at ?? '' }}</td>
+                    <td>{{ $checksUrl[$url->id]->status_code ?? '' }}</td>
                 </tr>
             @endforeach
             </tbody>
         </table>
-    </table>
-</div>
+        {{ $urls->links() }}
+    </div>
 @endsection
