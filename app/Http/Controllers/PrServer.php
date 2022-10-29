@@ -22,13 +22,9 @@ class PrServer extends Controller
 
     public function store(Request $request)
     {
-        $validated = $this->validate($request, [
+        $this->validate($request, [
             'url.name' => 'required|max:255|min:4'
         ]);
-        if ($validated->any()) {
-            flash('Некорректный URL')->error();
-            return redirect()->route('welcome')->withErrors($validated);
-        }
 
         $Url = $request->input('url.name');
         if(substr($Url, 0, 8) == "https://" || substr($Url, 0, 7) == "http://"){
