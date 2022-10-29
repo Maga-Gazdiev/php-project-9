@@ -10,15 +10,13 @@
 <div class="container-lg">
     <h1 class="mt-3 mb-3">Сайты</h1>
     <table class="table table-bordered table-hover text-nowrap" data-test="urls">
-            <thead>
+        <tbody>
             <tr>
                 <th>ID</th>
                 <th>Имя</th>
                 <th>Последняя проверка</th>
                 <th>Код ответа</th>
             </tr>
-            </thead>
-            <tbody>
             @foreach($users as $user)
                 <tr>
                     <td>{{ $user->id }}</td>
@@ -27,8 +25,7 @@
                     <td>{{ $all[$user->id]->status_code ?? ''}}</td>
                 </tr>
             @endforeach
-            </tbody>
-        </table>
+        </tbody>
     </table>
 </div>
 @endsection
