@@ -11,8 +11,7 @@
 
             <form action="{{ route('urls.store') }}" method="POST" class="d-flex justify-content-center">
                 @csrf
-                <input type="text" name="url[name]" value="" class="form-control form-control-lg is-invalid"placeholder="https://www.example.com">
-                <div class="invalid-feedback">Некорректный URL</div>
+                <input type="text" name="url[name]" value="" class="form-control form-control-lg"placeholder="https://www.example.com">
                 <input type="submit" class="btn btn-primary btn-lg ms-3 px-5 text-uppercase mx-3" value="Проверить">
             </form>
         </div>
