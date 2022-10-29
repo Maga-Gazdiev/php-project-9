@@ -23,6 +23,7 @@ class PrServer extends Controller
 
     public function store(Request $request)
     {
+        $Url = $request->input('url.name');
         $validated = Validator::make($request->all(), [
             'url.name' => 'url|required|max:255',
         ]);
@@ -31,7 +32,7 @@ class PrServer extends Controller
             return redirect()->route('main')->withErrors($validated);
         }
 
-        $Url = $request->input('url.name');
+        
         $getNormalUrl = function($Url)
         {
           $nameUrl = mb_strtolower($Url);
