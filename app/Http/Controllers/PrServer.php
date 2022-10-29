@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 use DiDom\Document;
 use Carbon\Carbon;
+
 
 class PrServer extends Controller
 {  
