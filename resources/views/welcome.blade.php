@@ -13,7 +13,7 @@
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                            <li>{{ flash('Некорректный URL')->error(); }}</li>
                         @endforeach
                        </ul>
                 </div>
