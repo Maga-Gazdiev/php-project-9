@@ -48,9 +48,9 @@
             <tr>
                 <td>{{ $alls->id }}</td>
                 <td>{{ $alls->status_code }}</td>
-                <td>{{ Str::limit($alls->h1, 10, "...") }}</td>
-                <td>{{ Str::limit($alls->title, 30, "...") }}</td>
-                <td>{{ Str::limit($alls->description, 30, "...") }}</td>
+                <td>{{ $alls->h1 }}</td>
+                <td>{{ $alls->title }}</td>
+                <td>{{ $alls->description }}</td>
                 <td>{{ $alls->created_at }}</td>
             </tr>
             @endforeach
