@@ -27,7 +27,7 @@ class PrServer extends Controller
         $validated = Validator::make($request->all(), [
             'url.name' => 'url|required|max:255',
         ]);
-        if (substr($Url, 0, 8) == "https://" && $validated->fails() || substr($Url, 0, 7) == "http://" && $validated->fails() ) {
+        if (substr($Url, 0, 8) !== "https://" && $validated->fails() || substr($Url, 0, 7) !== "http://" && $validated->fails() ) {
             flash('Некорректный URL')->error();
             return redirect()->route('main')->withErrors($validated);
         }
