@@ -53,7 +53,7 @@ class PrServer extends Controller
         $id = DB::table('urls')->where('name', $name)->value('id');
         return redirect()->route('urls.show', $id);
         } else {
-            
+            flash('Некорректный URL')->error();
             return redirect()->route('/home');
         }
     }  
