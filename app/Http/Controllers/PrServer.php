@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Http;
@@ -22,12 +23,15 @@ class PrServer extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'url.name' => 'required|max:255|min:4'
         ]);
+        if($validator->fails()){
+
+        }
 
         $Url = $request->input('url.name');
-        if(substr($Url, 0, 8) == "https://" || substr($Url, 0, 7) == "http://"){
+        if(substr($Url, 0, 8) == "https://" && empty($validator->fails()) || substr($Url, 0, 7) == "http://" && empty($validator->fails())){
         $getNormalUrl = function($Url)
         {
           $nameUrl = mb_strtolower($Url);
@@ -52,9 +56,9 @@ class PrServer extends Controller
         flash('Страница успешно добавлена')->success();
         $id = DB::table('urls')->where('name', $name)->value('id');
         return redirect()->route('urls.show', $id);
-        } else {
+        } elseif(isset($validator->fails())) {
             flash('Некорректный URL')->error();
-            return redirect()->route('/home');
+            return redirect()->route('welcome')->withErrors($validated);
         }
     }  
 
