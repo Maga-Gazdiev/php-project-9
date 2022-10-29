@@ -25,7 +25,7 @@ class PrServer extends Controller
         $validated = $this->validate($request, [
             'url.name' => 'required|max:255|min:4'
         ]);
-        if ($validated->fails()) {
+        if ($validated->any()) {
             flash('Некорректный URL')->error();
             return redirect()->route('welcome')->withErrors($validated);
         }
