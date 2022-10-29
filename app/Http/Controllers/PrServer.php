@@ -55,7 +55,7 @@ class PrServer extends Controller
         return redirect()->route('urls.show', $id);
         } elseif($validator->fails()) {
             flash('Некорректный URL')->error();
-            return redirect()->route('/home')->withErrors($validator);
+            return redirect()->route('welcome')->withErrors($validator);
         }
     }  
 
