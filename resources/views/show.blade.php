@@ -4,6 +4,9 @@
 @extends('layouts.layouts')
 
 @section('new_content')
+
+@include('flash::message')
+
 <div class="container-lg">
     <div class="table-responsive">
         <table class="table table-bordered table-hover text-nowrap">
