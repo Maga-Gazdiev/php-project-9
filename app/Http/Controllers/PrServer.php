@@ -17,6 +17,14 @@ class PrServer extends Controller
 
     public function store(Request $request)
     {
+        $validated = Validator::make($request->all(), [
+            'url.name' => 'url|required|max:255',
+        ]);
+        if ($validated->fails()) {
+            flash('Некорректный URL')->error();
+            return redirect()->route('welcome')->withErrors($validated);
+        }
+
         $Url = $request->input('url.name');
         if(substr($Url, 0, 8) == "https://" || substr($Url, 0, 7) == "http://"){
         $getNormalUrl = function($Url)
