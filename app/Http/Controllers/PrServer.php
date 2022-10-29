@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Http;
@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use DiDom\Document;
 use Carbon\Carbon;
+use Exception;
 
 
 class PrServer extends Controller
@@ -21,8 +22,8 @@ class PrServer extends Controller
 
     public function store(Request $request)
     {
-        $validated = Validator::make($request->all(), [
-            'url.name' => 'url|required|max:255',
+        $validated = $this->validate($request, [
+            'url.name' => 'required|max:255|min:4'
         ]);
         if ($validated->fails()) {
             flash('Некорректный URL')->error();
