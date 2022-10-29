@@ -29,7 +29,7 @@ class PrServer extends Controller
         ]);
         if (substr($Url, 0, 8) !== "https://" && $validated->fails() || substr($Url, 0, 7) !== "http://" && $validated->fails() ) {
             flash('Некорректный URL')->error();
-            return redirect()->route('main')->withErrors($validated);
+            return redirect()->route('/home')->withErrors($validated);
         }
 
         
