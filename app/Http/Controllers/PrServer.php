@@ -26,12 +26,9 @@ class PrServer extends Controller
         $validator = Validator::make($request->all(), [
             'url.name' => 'required|max:255|min:4'
         ]);
-        if($validator->fails()){
-
-        }
 
         $Url = $request->input('url.name');
-        if(substr($Url, 0, 8) == "https://" && empty($validator->fails()) || substr($Url, 0, 7) == "http://" && empty($validator->fails())){
+        if(substr($Url, 0, 8) == "https://" || substr($Url, 0, 7) == "http://"){
         $getNormalUrl = function($Url)
         {
           $nameUrl = mb_strtolower($Url);
@@ -56,9 +53,9 @@ class PrServer extends Controller
         flash('Страница успешно добавлена')->success();
         $id = DB::table('urls')->where('name', $name)->value('id');
         return redirect()->route('urls.show', $id);
-        } elseif(!empty($validator->fails())) {
+        } elseif($validator->fails()) {
             flash('Некорректный URL')->error();
-            return redirect()->route('welcome')->withErrors($validated);
+            return redirect()->route('/home')->withErrors($validator);
         }
     }  
 
