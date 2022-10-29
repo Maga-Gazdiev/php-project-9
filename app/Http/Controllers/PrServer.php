@@ -56,7 +56,7 @@ class PrServer extends Controller
         flash('Страница успешно добавлена')->success();
         $id = DB::table('urls')->where('name', $name)->value('id');
         return redirect()->route('urls.show', $id);
-        } elseif(isset($validator->fails())) {
+        } elseif(!empty($validator->fails())) {
             flash('Некорректный URL')->error();
             return redirect()->route('welcome')->withErrors($validated);
         }
