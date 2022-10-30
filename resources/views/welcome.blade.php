@@ -17,9 +17,10 @@
                 <div class="col-8">
                 <input type="text" name="url[name]" value="" class="form-control form-control-lg is-invalid" placeholder="https://www.example.com">
                 <div class="invalid-feedback">Некорректный URL</div>
+                </div>
+                <div>
                 <input type="submit" class="btn btn-primary btn-lg ms-3 px-5 text-uppercase mx-1" value="Проверить">
                 </div>
-               
             </form>
         </div>
     </div>
