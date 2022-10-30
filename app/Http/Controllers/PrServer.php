@@ -21,11 +21,6 @@ class PrServer extends Controller
         return view(view: 'welcome');
     }
 
-    public function welcome()
-    {
-        return view(view: 'home');
-    }
-
     public function store(Request $request)
     {
         $validated = Validator::make($request->all(), [
