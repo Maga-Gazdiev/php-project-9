@@ -21,11 +21,6 @@ class PrServer extends Controller
         return view(view: 'welcome');
     }
 
-    public function indexv()
-    {
-        return view(view: 'welcome');
-    }
-
     public function store(Request $request)
     {
         $validated = Validator::make($request->all(), [
@@ -36,7 +31,7 @@ class PrServer extends Controller
 
         if ($validated->fails() && substr($Url, 0, 8) !== "https://" || $validated->fails() && substr($Url, 0, 7) !== "http://") {
         flash('Некорректный URL')->error();
-        return redirect()->route('/indexv')->withErrors($validated);
+        return redirect()->route('/home')->withErrors($validated);
         } else {  
         $getNormalUrl = function($Url)
         {
