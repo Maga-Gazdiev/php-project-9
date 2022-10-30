@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', 'App\Http\Controllers\PrServer@home')->name('/home');
 
+Route::get('/urls', 'App\Http\Controllers\PrServer@welcome')->name('/welcome');
+
 Route::get('/urls', 'App\Http\Controllers\PrServer@index')->name('urls.index');
 
 Route::post('/urls', 'App\Http\Controllers\PrServer@store')->name('urls.store');
