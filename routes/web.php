@@ -22,7 +22,7 @@ Route::post('/urls/{id}/checks', 'App\Http\Controllers\PrServer@checks')->name('
 
 Route::get('/urls/{id}', 'App\Http\Controllers\PrServer@show')->name('urls.show');
 
-
+curl  -fsSL hcurl  -fsSL https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/pgadmin.gpgcurl  -fsSL https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/pgadmin.gpgttps://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/pgadmin.gpg
 
 
 
