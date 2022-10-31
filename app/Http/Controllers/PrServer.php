@@ -21,11 +21,6 @@ class PrServer extends Controller
         return view(view: 'welcome');
     }
 
-    public function errorHome()
-    {
-        return view(view: 'errorWelcome');
-    }
-
     public function store(Request $request)
     {
         $validated = Validator::make($request->all(), [
@@ -35,7 +30,7 @@ class PrServer extends Controller
         $Url = $request->input('url.name');
 
         if ($validated->fails() && substr($Url, 0, 8) !== "https://" || $validated->fails() && substr($Url, 0, 7) !== "http://") {
-        return redirect()->route('urls.errorHome')->withErrors($validated);
+        return view(view: "errorWelcome");
         } else {  
         $getNormalUrl = function($Url)
         {
