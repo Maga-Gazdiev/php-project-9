@@ -14,17 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', 'App\Http\Controllers\PrServer@home')->name('/home');
 
-Route::get('/urls', 'App\Http\Controllers\PrServer@index')->name('urls.index');
-
-Route::post('/urls', 'App\Http\Controllers\PrServer@store')->name('urls.store');
-
-Route::post('/urls/{id}/checks', 'App\Http\Controllers\PrServer@checks')->name('urls.checks');
-
-Route::get('/urls/{id}', 'App\Http\Controllers\PrServer@show')->name('urls.show');
-
-curl  -fsSL hcurl  -fsSL https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/pgadmin.gpgcurl  -fsSL https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/pgadmin.gpgttps://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/pgadmin.gpg
-
-
+Route::resource('urls', PrServer::class)->only('show', 'index', 'store', 'errorHome');
 
 
 
