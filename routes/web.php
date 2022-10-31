@@ -21,8 +21,3 @@ Route::post('/urls', 'App\Http\Controllers\PrServer@store')->name('urls.store');
 Route::post('/urls/{id}/checks', 'App\Http\Controllers\PrServer@checks')->name('urls.checks');
 
 Route::get('/urls/{id}', 'App\Http\Controllers\PrServer@show')->name('urls.show');
-
-
-
-
-
