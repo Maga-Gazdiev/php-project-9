@@ -14,7 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', 'App\Http\Controllers\PrServer@home')->name('/home');
 
-Route::resource('urls', 'App\Http\Controllers\PrServer')->only('index', 'store', 'checks', 'show', 'errorHome');
+Route::resource('urls', 'App\Http\Controllers\PrServer')->only('index', 'errorHome');
+
+Route::post('/urls', 'App\Http\Controllers\PrServer@store')->name('urls.store');
+
+Route::post('/urls/{id}/checks', 'App\Http\Controllers\PrServer@checks')->name('urls.checks');
+
+Route::get('/urls/{id}', 'App\Http\Controllers\PrServer@show')->name('urls.show');
+
+
 
 
 
