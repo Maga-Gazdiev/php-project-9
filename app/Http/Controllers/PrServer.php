@@ -15,12 +15,7 @@ use Exception;
 
 
 class PrServer extends Controller
-{  
-    public function home()
-    {
-        return view(view: 'welcome');
-    }
-
+{ 
     public function store(Request $request)
     {
         $validated = Validator::make($request->all(), [
@@ -30,8 +25,7 @@ class PrServer extends Controller
         $Url = $request->input('url.name');
 
         if ($validated->fails() && substr($Url, 0, 8) !== "https://" || $validated->fails() && substr($Url, 0, 7) !== "http://") {
-        flash('error')->error();
-        return view(view: "errorWelcome")->withErrors($validated);
+            return view(view: 'errorWelcome');
         } else {  
         $getNormalUrl = function($Url)
         {
