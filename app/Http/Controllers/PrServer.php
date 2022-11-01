@@ -30,7 +30,7 @@ class PrServer extends Controller
         $Url = $request->input('url.name');
 
         if ($validated->fails() && substr($Url, 0, 8) !== "https://" || $validated->fails() && substr($Url, 0, 7) !== "http://") {
-        header("http://127.0.0.1:8000/urls", TRUE, 422);
+        abort_unless("http://127.0.0.1:8000/urls", 402);
         return view(view: "errorWelcome")->withErrors($validated);
         } else {  
         $getNormalUrl = function($Url)
