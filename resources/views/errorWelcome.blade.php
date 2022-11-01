@@ -5,6 +5,7 @@
 
 @section('new_content')
 
+@include('flash::message')
 <div class="container-lg">
     <div class="row mt-3">
         <div class="col-12 col-md-10 col-lg-8 mx-auto border rounded-3 bg-light p-5">
