@@ -15,8 +15,8 @@
             <form action="{{ route('urls.store') }}" method="POST" class="row">
                 @csrf
                 <div class="col-8">
-                <input type="text" name="url[name]" value="{{ $Url }}" class="form-control form-control-lg is-invalid" placeholder="https://www.example.com">
-                <div class="invalid-feedback">Некорректный URL</div>
+                <input type="text" name="url[name]" value="" class="form-control form-control-lg is-invalid" placeholder="https://www.example.com">
+                <div class="invalid-feedback">URL не должен быть пустым</div>
                 </div>
                 <div class="col-2">
                 <input type="submit" class="btn btn-primary btn-lg ms-3 px-5 text-uppercase mx-1" value="Проверить">
