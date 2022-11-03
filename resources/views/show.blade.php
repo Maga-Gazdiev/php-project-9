@@ -44,6 +44,7 @@
                 <th>description</th>
                 <th>Дата создания</th>
             </tr>
+            
             @foreach($all as $alls)
             <tr>
                 <td>{{ $alls->id }}</td>

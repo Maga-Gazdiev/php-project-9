@@ -63,7 +63,7 @@ class PrServer extends Controller
         try {
             $response = Http::get($users->name);
         } catch (\Exception $e) {
-            
+            flash('Произошла ошибка при проверке')->error();
             return redirect()->route('urls.show', ['id' => $id]);
         }
         
