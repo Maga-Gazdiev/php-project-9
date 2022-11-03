@@ -12,13 +12,13 @@
             <h1 class="display-3">Анализатор страниц</h1>
             <p class="lead">Бесплатно проверяйте сайты на SEO пригодность</p>
 
-            <form action="{{ route('urls.store') }}" method="POST" class="d-flex justify-content-center">
+            <form action="{{ route('urls.store') }}" method="POST" class="row">
                 @csrf
                 <div class="col-8">
                 <input type="text" name="url[name]" value="" class="form-control form-control-lg is-invalid" placeholder="https://www.example.com">
                 <div class="invalid-feedback">Некорректный URL</div>
                 </div>
-                <div>
+                <div class="col-2">
                 <input type="submit" class="btn btn-primary btn-lg ms-3 px-5 text-uppercase mx-1" value="Проверить">
                 </div>
             </form>
