@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('url_checks', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->foreignId('url_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->smallInteger('status_code')->nullable();
-            $table->string('h1', 1000)->nullable();
-            $table->string('title', 1000)->nullable();
-            $table->string('description', 2000)->nullable();
-            $table->timestamps();
+            $table->id();
+            $table->foreignId('url_id')->references('id')->on('urls');
+            $table->integer('status_code')->nullable();
+            $table->text('h1')->nullable();
+            $table->text('title')->nullable();
+            $table->text('description')->nullable();
+            $table->timestamp('created_at');
         });
     }
 

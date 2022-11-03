@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('urls', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('name')->unique();
-            $table->timestamps();
+            $table->timestamp('created_at');
         });
     }
 
