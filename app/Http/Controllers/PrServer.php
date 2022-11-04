@@ -18,6 +18,8 @@ use Exception;
 
 class PrServer extends Controller
 { 
+    use view;
+    
     public function store(Request $request)
     {
         $validated = Validator::make($request->all(), [
