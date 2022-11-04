@@ -22,7 +22,7 @@ class UrlTest extends TestCase
         $response = $this->get(route('urls.index'));
         $response->assertOk();
     }
-    
+
     public function testShow(): void
     {
         $response = $this->get(route('urls.show', $this->id));
