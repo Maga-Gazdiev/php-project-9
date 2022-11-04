@@ -56,7 +56,7 @@ class PrServer extends Controller
         }
     }  
 
-    public function checks(Request $request, $id)
+    public function checks(Request $request, int $id)
     {   
         $users = DB::table('urls')->find($id);
         
@@ -93,7 +93,7 @@ class PrServer extends Controller
        return view('index', compact('users', 'all'));
     }  
 
-    public function show($id)
+    public function show(int $id)
     {
         $users = DB::table('urls')->find($id);
         $all = DB::table('url_checks')->where('url_id', $id)->get();
