@@ -11,5 +11,5 @@ class ExampleTest extends TestCase
      *
      * @return void
      */
-    
+
 }
