@@ -28,10 +28,12 @@ class PrServer extends Controller
 
         if ($validated->fails() && substr($Url, 0, 8) !== "https://" && !empty($Url) || $validated->fails() && substr($Url, 0, 7) !== "http://" && !empty($Url)) {
             return response()
-            ->view('errorWelcome', compact('Url'), 422);
+            ->view('errorWelcome', compact('Url'), 422)
+            ->header('Content-Type', 'text/plain');
         } if(empty($Url)){
             return response()
-            ->view('emptyInput', compact('Url'), 422);
+            ->view('emptyInput', compact('Url'), 422)
+            ->header('Content-Type', 'text/plain');
         } else {  
         $getNormalUrl = function($Url)
         {
