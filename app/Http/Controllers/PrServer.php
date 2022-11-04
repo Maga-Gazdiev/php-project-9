@@ -18,7 +18,7 @@ use Exception;
 
 
 class PrServer extends Controller
-{ 
+{
     public function store(Request $request)
     {
         $validated = Validator::make($request->all(), [
