@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -27,13 +29,10 @@ class PrServer extends Controller
         $Url = $request->input('url.name');
 
         if ($validated->fails() && substr($Url, 0, 8) !== "https://" && !empty($Url) || $validated->fails() && substr($Url, 0, 7) !== "http://" && !empty($Url)) {
-            return response()
-            ->view('errorWelcome', compact('Url'), 422)
-            ->header('Content-Type', 'text/plain');
+            return response()->view('errorWelcome', compact('Url'), 422)
+
         } if(empty($Url)){
-            return response()
-            ->view('emptyInput', compact('Url'), 422)
-            ->header('Content-Type', 'text/plain');
+            return response()->view('emptyInput', compact('Url'), 422)
         } else {  
         $getNormalUrl = function($Url)
         {
