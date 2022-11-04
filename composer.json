@@ -9,7 +9,7 @@
         "guzzlehttp/guzzle": "^7.5",
         "imangazaliev/didom": "^2.0",
         "laracasts/flash": "^3.2",
-        "laravel/framework": "^9.19",
+        "laravel/framework": "^9.38",
         "laravel/installer": "^4.2",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
