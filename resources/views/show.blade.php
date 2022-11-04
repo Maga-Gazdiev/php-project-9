@@ -9,9 +9,9 @@
 
 <div class="container-lg">
     <div class="table-responsive">
-        <table class="table table-bordered table-hover text-nowrap">
-            <h1 class="mt-5 mb-3">Сайт: {{ $users->name }}</h1>
-            <form action={{ route('urls.show', $users->id) }} class="d-flex">
+        <table class="table table-bordered table-hover text-nowrap" data-test="url">
+            <h1 class="mt-3">Сайт: {{ $users->name }}</h1>
+            <form action="{{ route('urls.show', $users->id) }}" class="d-flex">
                 <tbody>
                     <tr>
                         <th>ID</th>
@@ -58,5 +58,6 @@
         </tbody>
     </table>
 </div>
+
 
 @endsection

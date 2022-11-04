@@ -25,9 +25,9 @@ class PrServer extends Controller
         $Url = $request->input('url.name');
 
         if ($validated->fails() && substr($Url, 0, 8) !== "https://" && !empty($Url) || $validated->fails() && substr($Url, 0, 7) !== "http://" && !empty($Url)) {
-            return view('errorWelcome', compact('Url'));
+            return response()->view('errorWelcome', compact('Url'), 422);
         } if(empty($Url)){
-            return view(view: 'emptyInput');
+            return response()->view('emptyInput', compact('Url'), 422);
         } else {  
         $getNormalUrl = function($Url)
         {
@@ -43,7 +43,7 @@ class PrServer extends Controller
         $id = DB::table('urls')->where('name', $name)->value('id');
           
         if ($id) {
-            flash('Страница уже существует')->success();
+            flash('Страница уже существует');
             return redirect()->route('urls.show', $id);
         } 
         DB::table('urls')->insert([
@@ -82,7 +82,7 @@ class PrServer extends Controller
         'created_at' => Carbon::now('MSK'),
         ]);
 
-        flash('Страница успешно проверена');
+        flash('Страница успешно проверена')->success();
         return redirect()->route('urls.show', $id);
     }  
 

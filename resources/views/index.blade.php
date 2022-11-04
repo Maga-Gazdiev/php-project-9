@@ -7,8 +7,8 @@
 
 @include('flash::message')
 
-<div class="container-lg">
-    <h1 class="mt-3 mb-3">Сайты</h1>
+<div class="container-lg mt-3">
+    <h1>Сайты</h1>
     <table class="table table-bordered table-hover text-nowrap" data-test="urls">
         <tbody>
             <tr>
